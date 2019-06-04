@@ -1,0 +1,106 @@
+{% extends 'plantilla.html' %} {% block titulo %}
+<title>Mensajeria : Reportes</title>
+{% endblock titulo %} {% block contenido %}
+<div id="reporte" class=" row center">
+    <div id="buscar" class="row container">
+        <form action="{% url 'reporte' %}" method="POST">{% csrf_token %}
+
+            <div class="input-field col m2 ">
+                <i class="prefix fa fa-calendar-alt fa-3x"></i>
+                <input id="fechaDesde" name="fechaDesde" type="date" required>
+                <label for="fechaDesde" class="active">Fecha Desde</label>
+            </div>
+            <div class="input-field col m2 ">
+                <i class="prefix fa fa-calendar-alt fa-3x"></i>
+                <input id="fechaHasta" name="fechaHasta" type="date" required>
+                <label for="fechaHasta" class="active">Fecha Hasta</label>
+            </div>
+
+            <div class="input-field col m2 ">
+                <i class="prefix fas fa-people-carry fa-3x"></i>
+                <input id="remitente" name="remitente" type="text" class="autocomplete" required>
+                <label for="remitente" class="">Remitente</label>
+            </div>
+
+            <div class="input-field col m2 ">
+                <i class="prefix fa fa-user-tag fa-3x"></i>
+                <input id="destinatario" name="destinatario" type="text" required>
+                <label for="destinatario" class="">Destinatario</label>
+            </div>
+
+            <div class="input-field col m2 ">
+                <i class="prefix fa fa-edit fa-3x"></i>
+                <input id="descripcion" name="descripcion" type="text" required>
+                <label for="descripcion" class="">Descripcion</label>
+            </div>
+
+            <div class="center col m2">
+                <input id="bBuscar" type="submit" value="Buscar" class=" btn">
+            </div>
+        </form>
+    </div>
+
+
+    <table id="tabla" class="highlight striped" style="width:100%">
+        <thead>
+            <tr>
+                <th style="width:150px;">Codigo</th>
+                <th style="width:150px;">Sucursal</th>
+                <th style="width:150px;">Recepcionista</th>
+                <th style="width:150px;">Remitente</th>
+                <th style="width:150px;">Destinatario</th>
+                <th style="width:250px;">Descripcion</th>
+                <th style="width:150px;">Fecha Recibido</th>
+                <th style="width:250px;">Observacion</th>
+                <th style="width:100px;">Estado</th>
+                <th style="width:150px;">Fecha Entrega</th>
+                <!--<th style="width:50px;">Recibir</th>-->
+            </tr>
+        </thead>
+
+        <tbody>
+
+				{% for m in mensajeria %}
+				<tr>
+					<td class="blue-text">{{ m.codigo }}</td>
+					<td>{{ m.sucursal }}</td>
+					<td>{{ m.recepcionista.get_full_name }}</td>
+					<td>{{ m.remitente }}</td>
+					<td>{{ m.destinatario }}</td>
+					<td>{{ m.descripcion }}</td>
+					<td class="center">{{ m.fecha_recibido }}</td>
+					{% if m.observacion %}
+					<td>{{ m.observacion }}</td>
+					{% else %}
+					<td class="center">---</td>
+					{% endif %} {% if m.estado == "Recibido" %}
+					<td id="est" class="center">
+						<div name="{{ m.id }}" class="estado green accent-4">{{ m.estado }}</div>
+					</td>
+					{% else %}
+					<td id="est" class="center">
+						<div name="{{ m.id }}" class="estado red accent-4" value="{{ m.estado }}">{{ m.estado }}</div>
+					</td>
+					{% endif %} {% if m.fecha_entrega %}
+					<td class="center">{{ m.fecha_entrega }}</td>
+					{% else %}
+					<td class="center" value="{{ m.id }}">---</td>
+					{% endif %}
+
+					<!--<td id="anc" class="center">
+						{% if m.estado == "Recibido" %}
+						<button class="disabled act btn">Entregar</button> {% else %}
+						<button type="submit" class="act btn waves-effect waves-light" value="{{ m.id }}">Entregar</button> {% endif %}
+					</td>-->
+                    
+				</tr>
+				{% endfor %}
+
+        </tbody>
+    </table>
+
+</div>
+
+
+
+{% endblock contenido %}

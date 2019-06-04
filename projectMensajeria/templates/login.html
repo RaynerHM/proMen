@@ -1,0 +1,92 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<title>Mensajeria : Iniciar Sesión</title>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+	<link rel="stylesheet" href="{% static '/materialize-v1.0.0-rc.2/css/materialize.min.css' %}" media="screen,projection">
+	<link rel="stylesheet" href="{% static '/fontawesome-5.2.0-web/css/all.min.css' %}">
+	<link rel="stylesheet" href="{% static '/css/login.css' %}">
+	<link rel="icon" href="{% static '/media/image/favicon.ico' %}" type="image/x-icon">
+</head>
+
+<body id="login">
+	<div class="container ">
+		<div class="row " style="display:flex;justify-content:center;align-items:center;padding-top:50px;">
+			<div class=" fondo z-depth-5 center">
+				<form method="POST" action="{% url 'login' %}">{% csrf_token %}
+					<h4 class="hide-on-small-only">INICIAR SESION</h4>
+					<!--   Usuario   -->
+					<div class="input-field">
+						<i class="prefix fa fa-user fa-3x"></i>
+						<input id="username" name="username" type="text" required autocomplete="off">
+						<label for="username" class="active">Usuario</label>
+					</div>
+
+					<!--  Clave  -->
+					<div class="input-field">
+						<i class="prefix fa fa-key fa-3x"></i>
+						<input id="password" name="password" type="password" required autocomplete="off">
+						<label for="password" class="active">Clave</label>
+					</div>
+
+					<div class="row">
+						<!--   Iniciar Sesion   -->
+						<div class="col m12 s12 center group navform wat-cf">
+							<button class="btn hoverable waves-effect" type="submit">INICIAR SESION</button>
+						</div>
+					</div>
+				</form>
+				{% if mensaje %}
+				<div id="mensaje" class="red ">
+					{{ mensaje }}
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+	<div class="fixed-action-btn">
+		<a class="btn-floating pulse btn-large modal-trigger" data-target="modal_video"><i class="far fa-question-circle fa-4x"></i></a>
+	</div>
+
+	<div id="modal_video" class="modal modal-datos row">
+		<div class="modal-content">
+
+			<video id="video_ayuda" class="responsive-video" controls autoplay>
+				<source src="{{ video }}" type="video/mp4">
+			</video>
+
+			<div class="modal-footer center">
+				<input type="button" value="Cerrar" class="btn azul modal-close">
+			</div>
+		</div>
+	</div>
+
+	<script src="{% static '/jquery/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static '/materialize-v1.0.0-rc.2/js/materialize.min.js' %}"></script>
+
+	<script>
+		$(document).ready(function() {
+			$('#username').focus();
+			$('#video_ayuda')[0].pause();
+
+			$('.modal').modal({
+				onOpenEnd: function(){
+					$('#video_ayuda')[0].play();
+				},
+				onCloseEnd: function(){
+					$('#video_ayuda')[0].pause();
+				}
+			});
+		});
+	</script>
+
+</body>
+
+</html>

@@ -1,0 +1,152 @@
+{% extends 'plantilla.html' %}
+{% load staticfiles %}
+{% block titulo %}
+
+<title>Mensajeria : Personal</title>
+{% endblock titulo %}
+
+<!-- Bloque de archivos CSS -->
+{% block staticCSS %}
+{% endblock staticCSS %}
+<!-- Fin Bloque de archivos CSS -->
+
+{% block contenido %}
+
+<div id="clasificar" class=" row center">
+
+	<form action="" method="GET">
+		<div class="col m3 s12 x12">
+			<input type="hidden" name="estado" value="todo">
+			<button class="{{ clase1 }} btn col m12 s12 x12"><span class="badge">{{ c_tot }}</span>MOSTRAR TODO</button>
+		</div>
+	</form>
+
+	<form action="" method="GET">
+		<div class="col m3 s12 x12">
+			<input type="hidden" name="estado" value="Recibido">
+			<button class="{{ clase4 }} btn col m12 s12 x12"><span class="badge">{{ c_rec }}</span>MENSAJERIA RECIBIDA</button>
+		</div>
+	</form>
+
+	<form action="" method="GET">
+		<div class="col m3 s12 x12">
+			<input type="hidden" name="estado" value="Pendiente">
+			<button class="{{ clase3 }} btn col m12 s12 x12"><span class="badge">{{ c_pen }}</span>MENSAJERIA PENDIENTE</button>
+		</div>
+	</form>
+
+	<form action="" method="GET">
+		<div  class="col m3 s12 x12">
+			<input type="hidden" name="estado" value="enviada">
+			<button class="{{ clase2 }} btn col m12 s12 x12"><span class="badge">{{ c_env }}</span>MENSAJERIA ENVIADA</button>
+		</div>
+	</form>
+
+</div>
+
+
+<div id="asdf"class="asd z-depth-5">
+	<table id="tabla" class="highlight striped" style="width:100%">
+		<thead>
+			<tr>
+				<th style="width:150px;">Código</th>
+
+				{% if request.get_full_path ==  "/?estado=enviada" %}
+				<th style="width:150px;">Enviado a</th>
+				{% else %}
+				<th style="width:150px;">Enviado por</th>
+				{% endif %}
+
+
+				<th style="width:250px;">Descripcion</th>
+
+				{% if request.get_full_path ==  "/?estado=enviada" %}
+				<th style="width:150px;">Fecha Enviada</th>
+				{% else %}
+				<th style="width:150px;">Fecha Enviada</th>
+				{% endif %}
+
+				<th style="width:100px;">Estado</th>
+				<th style="width:150px;">Mas Detalles</th>
+			</tr>
+		</thead>
+
+		<tbody>
+
+			{% for m in mensajeria %}
+			<tr>
+				<td id="cod{{ m.id }}" class="blue-text">{{ m.codigo }}</td>
+
+				{% if request.get_full_path ==  "/?estado=enviada" %}
+				<td>{{ m.destinatario }}</td>
+				{% else %}
+				<td>{{ m.remitente }}</td>
+				{% endif %}
+
+
+				<td>{{ m.descripcion }}</td>
+				<td class="center">{{ m.fecha_recibido }}</td>
+			
+				{% if m.estado == "Recibido" %}
+				<td id="est" class="center">
+					<div name="{{ m.id }}" class="estado green accent-4">{{ m.estado }}</div>
+				</td>
+				{% elif m.estado == "En Transito" %}
+				<td id="est" class="center">
+					<div name="{{ m.id }}" class="estado yellow accent-4 black-text">{{ m.estado }}</div>
+				</td>
+				{% elif m.estado == "Retenido" %}
+				<td id="est" class="center">
+					<div name="{{ m.id }}" class="estado light-blue darken-1">{{ m.estado }}</div>
+				</td>
+				{% elif m.estado == "Pendiente" %}
+				<a></a>
+				<td id="est" class="center">
+					<div name="{{ m.id }}" class="estado red accent-4" value="{{ m.estado }}">{{ m.estado }}</div>
+				</td>
+				{% endif %}
+				<td id="anc" class="center">
+					<button id="" class="btn-detalles btn waves-effect waves-light modal-trigger" data-target="datos" value="{{ m.codigo }}">
+						<i class="prefix far fa-eye "></i> Detalles
+					</button>
+				</td>
+
+			</tr>
+			{% endfor %}
+
+		</tbody>
+	</table>
+</div>
+
+
+<!-- MODAL PARA MOSTRAR DETALLES DE MENSAJERIA INTERNA -->
+<div id="datos" class="modal modal-datos row">
+ 	{% csrf_token %}
+	<div class="modal-content">
+		<div class="interna-datos">
+			<div class="row">
+				<h5 id="codigo-datos" style="color: #9e9e9e;margin: 32px 50px 0;">
+				</h5>
+			</div>
+		</div>
+		<div id="asdf" class="asd">
+			<!--    Mostrar datos   -->
+			<div class="row datos"></div>
+			<!--    Fin Mostrar datos   -->
+		</div>
+		<div class="modal-footer center">
+			<input type="button" value="Cerrar" class="btn azul modal-close">
+		</div>
+	</div>
+</div>
+<!-- FIN MODAL PARA MOSTRAR DETALLES DE MENSAJERIA INTERNA -->
+
+
+{% endblock contenido %}
+
+
+<!-- Bloque de archivos JS -->
+{% block staticJS %}
+<script src="{% static '/js/mensajeriaPersonal.js' %}"></script>
+{% endblock staticJS %}
+<!-- Fin Bloque de archivos JS -->

@@ -1,0 +1,119 @@
+Modelos:
+	- Remitente: Active Directory
+		username - user, null=False
+		nombre - text, null=False
+		correo - email, null=False
+		departamento - text, null=False
+
+	- Destinatario: Active Directory
+		username, null=False
+		nombre - text, null=False
+		correo - email, null=False
+		departamento - text, null=False
+
+	- Sucursal:
+		nombre - text, null=False
+		
+	- Correspondencia:
+		recepcionista - user, null=False
+		sucursal - text, null=False
+		remitente - text, null=False
+		destinatario - text, null=False
+		correo_destinatario, email, null=Flase
+		descripcion - text, null=False
+		fecha_recibido - date, null=False
+		fecha_entrega - date, null=False
+		observacion - text, null=True
+		comentario - text, null=True
+
+
+
+1. Nivel de acceso - privilegios.
+	- Recepcion
+	- Encargado
+	- Administracion (departamento de sistema)
+	- Mensajero
+	- Usuario bellbank
+
+
+
+2. Envio de notificaciones.
+	- solo enviar a correo @bellbank.com
+	- Enviar correo al destinatario, notificandole que tiene una,
+	  o varias correspondencias pendientes.
+	- Enviar correo al remitente, notificandole que ya el destinatario
+	  recibio la correspondencias.
+
+
+
+3. REGISTRAR CORRESPONDENCIAS:
+	Registrar Correspondencias, incluyendo:
+
+	- usuario
+	- sucursal
+	-   remitente
+	-   destinatario
+	-   descripcion
+	-   fecha_recibido
+	-   observacion
+	- fecha_entrega
+	- foto o scan del documento (opcional)
+
+
+
+4. RECIBIR LA CORRESPONDENCIA:
+	- El usuario podra ver las correspondencias que tiene pendientes
+	  y las que ya ha recibido.
+
+
+
+5. GENERAR REPORTES:
+	- Filtrar por:
+		* fechas
+		* Departamentos
+		* Usuarios
+	
+	- Crear graficas que muestre la cantidad de mensajeria:
+		* Mensajeria entregada
+		* Mensajeria pendientes
+		* Mensajeria por usuarios
+
+
+
+ESTADO_MENAJERIA:
+	en_transito
+	recibida
+	entregada
+
+	1 - Recepcion1 marca la mensajeria cono enviada, y el estado cambia a 'En transito'.
+	2 - Recepcion2 marca la mensajeria como recibida, y el estado cambia a 'Recibida'.
+	3 - Recepcion2 entraga la mensajeria, y el estado cambia a 'Entregada'.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------
+Futuro:
+	- Hacer que la Aplicaicón haga una llamada telefonica al destinatario.
+
+ 	- Modulo para hacer Recervacion de Sala de Reuniones
+
+
+
+
+
+Recepcionista
+Observacion
+Fecha Entrega
+Recibido por
+comentario

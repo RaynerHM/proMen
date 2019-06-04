@@ -1,0 +1,162 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	{% block titulo %}
+	<!-- Mostrar titulo del template -->
+	{% endblock titulo %}
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="{% static '/materialize-v1.0.0-rc.2/css/materialize.min.css' %}" media="screen,projection">
+	<link rel="stylesheet" href="{% static '/fontawesome-5.2.0-web/css/all.min.css' %}">
+	<link rel="stylesheet" href="{% static '/datatable/datatables.min.css' %}">
+	{% block staticCSS %}
+	{% endblock staticCSS %}
+	<link rel="stylesheet" href="{% static '/css/style.css' %}">
+	<link rel="icon" href="{% static '/media/image/favicon.ico' %}" type="image/x-icon">
+	<script src="{% static '/jquery/jquery-3.2.1.min.js' %}"></script>
+</head>
+
+<body id="mensajeria" style="margin:0;">
+	<div class="navbar-fixed">
+		<nav>
+			<div class="nav-wrapper">
+				<ul id="nav-mobile" class="right hide-on-med-and-down">
+					<li>
+						<i class="fas fa-user-circle"> </i> {{user.get_full_name}}
+					</li>
+				</ul>
+			</div>
+			<div class="right">
+				<a class="btn-flash dropdown-trigger" href="" data-target="dropdown1">
+					<i class="fa fa-bars"></i>
+				</a>
+			</div>
+		</nav>
+	</div>
+	<ul id="dropdown1" class="dropdown-content right">
+
+		<!-- Boton Mensajeria Personal -->
+		{% if request.path != '/' %}
+		<li>
+			<a href="/">
+				<i class="fas fa-envelope"> </i> Mensajeria Personal
+			</a>
+		</li>
+		{% endif %}
+		<!-- Fin Boton Mensajeria Personal -->
+
+		{% if perms.Mensajeria.crear_mensajeria %}
+
+		<!-- Boton Mensajeria Externa -->
+		{% if request.path != '/registrar_mensajeria_externa/' %}
+		<li>
+			<a href="{% url 'registrar_mensajeria_externa' %}">
+				<i class="fas fa-arrow-up"> </i> Registrar Mensajeria Externa
+			</a>
+		</li>
+		{% endif %}
+		<!-- Fin Boton Mensajeria Externa -->
+
+		<!-- Boton Registrar Mensajeria -->
+		{% if request.path != '/registrar_mensajeria_interna/' %}
+		<li>
+			<a href="{% url 'registrar_mensajeria_interna' %}">
+				<i class="fas fa-arrow-down"> </i> Registrar Mensajeria Interna
+			</a>
+		</li>
+		{% endif %}
+		<!-- Fin Boton Registrar Mensajeria -->
+		{% endif %}
+
+		<!-- Boton Reportes -->
+		{% if perms.Mensajeria.crear_reporte %}
+		{% if request.path != '/reporte/' %}
+		<li>
+			<a href="/reporte">
+				<i class="fas fa-chart-line"> </i> Reportes
+			</a>
+		</li>
+		{% endif %}
+		{% endif %}
+		<!-- Fin Boton Reportes -->
+
+		<li class="divider"></li>
+		<!-- Boton Admin -->
+		{% if user.is_staff %}
+		<li>
+			<a href="/admin/">
+				<i class="fas fa-id-badge"> </i> Admin
+			</a>
+		</li>
+		{% endif %}
+		<!-- Fin Boton Admin -->
+
+		<!-- Boton Cerrar Sesión -->
+		<li>
+			<a href="/logout/">
+				<i class="fas fa-power-off"> </i> Cerrar Sesión
+			</a>
+		</li>
+		<!-- Fin Boton Cerrar Sesión -->
+	</ul>
+
+	{% if request.path == '/'%}
+		<div class="fixed-action-btn">
+			<a class="btn-floating pulse btn-large modal-trigger" data-target="modal_video"><i class="far fa-question-circle fa-4x"></i></a>
+		</div>
+
+		<div id="modal_video" class="modal modal-datos row">
+			<div class="modal-content">
+
+				<video id="video_ayuda" class="responsive-video" controls autoplay>
+					<source src="{{ video }}" type="video/mp4">
+				</video>
+
+				<div class="modal-footer center">
+					<input type="button" value="Cerrar" class="btn azul modal-close">
+				</div>
+			</div>
+		</div>
+
+	{% endif %}
+
+	{% block contenido %}
+	<!-- Block para mostrar el contenido del template-->
+	{% endblock contenido %}
+
+
+	{% if mostrar_chat_de_ayuda == True %}
+		<!-- Start of Rocket.Chat Livechat Script -->
+		<script type="text/javascript">
+			(function(w, d, s, u) {
+				w.RocketChat = function(c) {
+					w.RocketChat._.push(c)
+				};
+				w.RocketChat._ = []; w.RocketChat.url = u;
+				var h = d.getElementsByTagName(s)[0], j = d.createElement(s);
+				j.async = true;
+				j.src = 'http://bellslack.bellbank.com/packages/rocketchat_livechat/assets/rocketchat-livechat.min.js?_=201702160944';
+				h.parentNode.insertBefore(j, h);
+			})(window, document, 'script', 'http://bellslack.bellbank.com/livechat');
+		</script>
+		<!-- End of Rocket.Chat Livechat Script -->
+	{% endif %}
+
+
+	<script src="{% static '/materialize-v1.0.0-rc.2/js/materialize.min.js' %}"></script>
+	<script src="{% static '/datatable/DataTables-1.10.18/js/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static '/datatable/datatables.js' %}"></script>
+	<script src="{% static '/js/moment-with-locales.min.js' %}"></script>
+	<script src="{% static '/js/detectarIP.js' %}"></script>
+	<script src="{% static '/js/style.js' %}"></script>
+	{% block staticJS %}
+
+	{% endblock staticJS %}
+
+</body>
+
+</html>

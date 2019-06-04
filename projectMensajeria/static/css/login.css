@@ -1,0 +1,216 @@
+/* ---------------------------------- Login ---------------------------------- */
+
+:root {
+	--blanco: #fff;
+	--azul: #0071bd;
+}
+
+@media only screen and (min-width: 360px) {
+	#login .fondo {
+		background-color: rgba(255, 255, 255, 0.32);
+		width: 300px;
+		border-radius: 15px;
+		padding: 20px 10px;
+		margin-bottom: 80px;
+	}
+	#login .row button, #login .row a {
+		padding: 0 5% 0 5%;
+		margin-top: 15px;
+		width: 250px;
+		border-radius: 5px;
+		text-align: center;
+	}
+	#login h3 {
+		font-size: 20px;
+		margin: 15px 0;
+	}
+}
+
+@media only screen and (min-width: 600px) {
+	#login .fondo {
+		background-color: rgba(255, 255, 255, 0.32);
+		width: 480px;
+		border-radius: 15px;
+		padding: 30px;
+	}
+	#login .row button, #login .row a {
+		padding: 0 5% 0 5%;
+		width: 200px;
+		border-radius: 5px;
+		text-align: center;
+	}
+	#login h3 {
+		font-size: 2.92rem;
+	}
+}
+
+#login .container {
+	margin: 50px 0%;
+	width: 100%;
+	max-width: 100%;
+}
+
+@media only screen and (min-width: 1364px) {
+	#login .container {
+		margin: 150px 0%;
+		width: 100%;
+		max-width: 100%;
+	}
+	#login h4 {
+		margin-top: 0px;
+		margin-bottom: 50px;
+	}
+}
+
+@media only screen and (min-width: 1200px) {
+	#login .container {
+		margin: 100px 0%;
+	}
+	#login h4 {
+		margin-top: 0px;
+		margin-bottom: 30px;
+	}
+	#login .fondo {
+		background-color: rgba(255, 255, 255, 0);
+		width: 500px;
+		border-radius: 15px;
+		padding: 30px;
+	}
+	#login .row button, #login .row a {
+		padding: 0 5% 0 5%;
+		width: 200px;
+		border-radius: 5px;
+		text-align: center;
+	}
+}
+
+#mensaje {
+	background-color: red;
+	color: var(--blanco);
+	border-radius: 10px;
+	text-align: center;
+	margin: 20px 0px 0px;
+	padding: 5px;
+	font-size: 20px;
+}
+
+.fondo h4 {
+	color: var(--blanco);
+}
+
+#login {
+	margin-top: 35px;
+	color: var(--blanco)f;
+	font-family: Cambria;
+}
+
+#login {
+	background: url(/static/image/login.jpg)no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+	overflow: auto;
+	color: var(--blanco);
+	margin: 0%;
+	height: 100%;
+}
+
+#login .row {
+	margin: 0px;
+}
+
+#login label, #residente label {
+	color: var(--blanco);
+}
+
+.row {
+	margin-top: 20px;
+}
+
+.row button {
+	background-color: var(--azul);
+}
+
+.row button, .row a {
+	padding: 0 5% 0 5%;
+	width: 150px;
+	border-radius: 5px;
+	text-align: center;
+}
+
+#login input[type="text"], #login input[type="password"] {
+	color: var(--blanco);
+	font-size: 20px;
+	border-bottom-color: var(--blanco);
+}
+
+.input-field .prefix.active {
+	color: var(--azul);
+}
+
+.btn:hover, .btn-large:hover {
+	background-color: #2b2d2d;
+}
+
+/*------------------ Modal -----------------------*/
+
+#modal_video .modal-footer {
+	height: auto;
+	text-align: center;
+}
+
+.modal .modal-footer input {
+	width: 100px;
+}
+
+.modal .modal-footer .btn {
+	margin: 5px 10px 0px;
+	width: 250px;
+	font-size: 1.2rem;
+	background-color: var(--azul);
+	text-transform: unset;
+	border-radius: 5px;
+}
+
+.modal .modal-content {
+	padding: 0px 0px 10px;
+}
+
+#modal_video .modal.modal-fixed-footer {
+	height: 50%;
+}
+
+#modal_video.modal {
+	border-radius: 10px;
+	max-height: 80%;
+	margin: auto;
+}
+
+/* ---- Modal Mesajeria Interna Video Ayuda ---- */
+
+#modal_video.modal {
+	box-shadow: none;
+	background-color: transparent;
+}
+
+#modal_video video {
+	border-radius: 10px;
+}
+
+#modal_video.modal .modal-content {
+	background-color: transparent;
+	box-shadow: none;
+}
+
+#modal_video.modal .modal-footer {
+	background-color: transparent;
+}
+
+/* --- Fin Modal Mesajeria Interna Video Ayuda --- */
+
+.btn-large {
+	background-color: var(--azul);
+}
+
+.btn-large i {
+	font-size: 50px;
+}
